@@ -16,7 +16,7 @@ public class payments {
     // The main Thread to call
     public static void main(String[] args) {
         // Printing because it returns the output
-        System.out.println(fileReader("C:\\Users\\manme\\Desktop\\ExportData.csv"));
+        System.out.println(fileReader("FILE PATH"));
     }
 
     // This will read the file url in the local disk
