@@ -66,7 +66,12 @@ public class payments {
                 }
 
                 if(match.find()){
-                    nums.add(Double.parseDouble(match.group().replace(",","")));
+                  try {
+                        nums.add(Double.parseDouble(match.group().replace(",","")));
+                    }
+                    catch (NumberFormatException e){
+                        nums.add(Double.parseDouble(match.group().replace("\"", "")));
+                    }
                 }
             }
 
