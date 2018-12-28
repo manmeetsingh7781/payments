@@ -12,12 +12,11 @@ public class payments {
     private static ArrayList<Double> deposit_amounts = new ArrayList<Double>();
     private static double total = 0d;
     private static double deposits = 0d;
-    private static double each_deposit = 0D;
 
     // The main Thread to call
     public static void main(String[] args) {
         // Printing because it returns the output
-        System.out.println(fileReader("FILE PATH"));
+        System.out.println(fileReader("C:\\Users\\manme\\Desktop\\ExportData.csv"));
     }
 
     // This will read the file url in the local disk
@@ -60,21 +59,21 @@ public class payments {
 
 //                 If matches
 //                 Adding elements into the array and replacing those
-              if(deposit_match.find()) {
-                       
+                if(deposit_match.find()) {
+                    double each_deposit = 0D;
 
-                        if(deposit_match.group().contains("$,")) {
-                            each_deposit = Double.parseDouble(deposit_match.group().replace("$,", ""));
-                        }
+                    if(deposit_match.group().contains("$,")) {
+                        each_deposit = Double.parseDouble(deposit_match.group().replace("$,", ""));
+                    }
 
-                        else  if(deposit_match.group().contains(",")) {
-                            each_deposit = Double.parseDouble(deposit_match.group().replace(",", ""));
-                        }
+                    else  if(deposit_match.group().contains(",")) {
+                        each_deposit = Double.parseDouble(deposit_match.group().replace(",", ""));
+                    }
 
-                        if (each_deposit > 0) {
-                                deposit_amounts.add(each_deposit);
-                            }
-               }
+                    if (each_deposit > 0) {
+                        deposit_amounts.add(each_deposit);
+                    }
+                }
                 if(m.find()){
                     dates.add(m.group());
                 }
@@ -117,4 +116,4 @@ public class payments {
 
 }
 
-///// Developed by Manmeet Singh 2018///
+///// Developed by Manmeet Singh 2018//
