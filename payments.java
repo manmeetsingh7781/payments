@@ -12,6 +12,7 @@ public class payments {
     private static ArrayList<Double> deposit_amounts = new ArrayList<Double>();
     private static double total = 0d;
     private static double deposits = 0d;
+    private static double each_deposit = 0D;
 
     // The main Thread to call
     public static void main(String[] args) {
@@ -60,7 +61,7 @@ public class payments {
 //                 If matches
 //                 Adding elements into the array and replacing those
               if(deposit_match.find()) {
-                        double each_deposit = 0D;
+                       
 
                         if(deposit_match.group().contains("$,")) {
                             each_deposit = Double.parseDouble(deposit_match.group().replace("$,", ""));
