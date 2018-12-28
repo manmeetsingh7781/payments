@@ -38,10 +38,11 @@ public class payments {
                 String pattern  = "[.\\d]\\S*/[.\\d]\\S*/[.\\d]*";
 
                 //Pattern for spent money
-                String amount =   "-[\\d]\\S*.\\S+[\\d]\\S";
+                String amount =   "-[\\d]+[.]+[\\d]\\S";
 
                 //Pattern for deposits
-                String deposit_pattern = "\\S,\\d+[.]\\S\\d*";
+                String deposit_pattern = "\\S\\d+[.]\\S\\d*";
+
 
                 // Compiling the patterns [ Deposit Pattern ]
                 Pattern deposit_p = Pattern.compile(deposit_pattern);
@@ -55,18 +56,29 @@ public class payments {
                 Pattern money_p = Pattern.compile(amount);
                 Matcher match = money_p.matcher(each_line);
 
-                // If matches
-                // Adding elements into the array and replacing those
-                if(deposit_match.find()){
-                    deposit_amounts.add(Double.parseDouble(deposit_match.group().replace("$,", "")));
-                }
 
+//                 If matches
+//                 Adding elements into the array and replacing those
+                if(deposit_match.find()) {
+                        if(deposit_match.group().contains("$,")) {
+                            double each_deposit = Double.parseDouble(deposit_match.group().replace("$,", ""));
+                            if (each_deposit > 0) {
+                                deposit_amounts.add(each_deposit);
+                            }
+                        }else  if(deposit_match.group().contains(",")) {
+                            double each_deposit = Double.parseDouble(deposit_match.group().replace(",", ""));
+                            if (each_deposit > 0) {
+                                deposit_amounts.add(each_deposit);
+                            }
+                        }
+
+                }
                 if(m.find()){
                     dates.add(m.group());
                 }
 
                 if(match.find()){
-                  try {
+                    try {
                         nums.add(Double.parseDouble(match.group().replace(",","")));
                     }
                     catch (NumberFormatException e){
@@ -76,20 +88,20 @@ public class payments {
             }
 
             // Tracking last transition
-          String last_date = (dates.get(dates.size()-1));
+            String last_date = (dates.get(dates.size()-1));
 
             // Adding total of each spending we have made
             for(double neg: nums){
 
                 // Negative because in file it will also be a negative for example: -10.99
                 if(neg < 0){
-                   total+= Math.abs(neg);
+                    total+= Math.abs(neg);
                 }
             }
 
             // Adding deposit value into the total which is > 0 for example: 200.99
             for(double dep: deposit_amounts){
-              deposits+=dep;
+                deposits+=dep;
             }
 
             // Returning all the data we have collected
@@ -97,10 +109,10 @@ public class payments {
 
             // Catching errors if somethings might happen
         } catch (FileNotFoundException e) {
-           return e.getMessage();
+            return e.getMessage();
         }
     }
-    
+
 }
 
 ///// Developed by Manmeet Singh 2018///
