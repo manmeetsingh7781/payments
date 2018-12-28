@@ -59,20 +59,21 @@ public class payments {
 
 //                 If matches
 //                 Adding elements into the array and replacing those
-                if(deposit_match.find()) {
+              if(deposit_match.find()) {
+                        double each_deposit = 0D;
+
                         if(deposit_match.group().contains("$,")) {
-                            double each_deposit = Double.parseDouble(deposit_match.group().replace("$,", ""));
-                            if (each_deposit > 0) {
-                                deposit_amounts.add(each_deposit);
-                            }
-                        }else  if(deposit_match.group().contains(",")) {
-                            double each_deposit = Double.parseDouble(deposit_match.group().replace(",", ""));
-                            if (each_deposit > 0) {
-                                deposit_amounts.add(each_deposit);
-                            }
+                            each_deposit = Double.parseDouble(deposit_match.group().replace("$,", ""));
                         }
 
-                }
+                        else  if(deposit_match.group().contains(",")) {
+                            each_deposit = Double.parseDouble(deposit_match.group().replace(",", ""));
+                        }
+
+                        if (each_deposit > 0) {
+                                deposit_amounts.add(each_deposit);
+                            }
+               }
                 if(m.find()){
                     dates.add(m.group());
                 }
